@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Web Pribadi Ultra</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    color: white;
+    overflow-x: hidden;
+    background: black;
+}
+
+/* BACKGROUND IMAGE */
+.bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: url('background.jpg') center/cover no-repeat;
+    animation: zoom 20s infinite alternate;
+    z-index: -2;
+}
+
+@keyframes zoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+
+/* OVERLAY */
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(6px);
+    z-index: -1;
+}
+
+/* PARTICLES */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+/* HEADER */
+header {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+h1 {
+    font-size: 3em;
+    text-shadow: 0 0 20px #ff004c;
+    animation: glitch 1s infinite;
+}
+
+/* GLITCH */
+@keyframes glitch {
+    0% { text-shadow: 2px 0 red; }
+    50% { text-shadow: -2px 0 blue; }
+    100% { text-shadow: 2px 0 red; }
+}
+
+/* CONTAINER */
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* CARD */
+.card {
+    background: rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px 0;
+    backdrop-filter: blur(15px);
+    transition: 0.3s;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 0 30px #ff004c;
+}
+
+/* SOCIAL BUTTON */
+.social-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 30px;
+    margin: 10px 10px 0 0;
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+
+.ig { background: linear-gradient(45deg,#ff0066,#ffcc00); }
+.tt { background: linear-gradient(45deg,#00f2ea,#ff0050); }
+
+.social-btn:hover {
+    transform: scale(1.15);
+}
+
+/* ICON */
+.icon {
+    width: 20px;
+    fill: white;
+}
+
+/* MUSIC BUTTON */
+.music-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #ff004c;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 20px #ff004c;
+}
+
+/* CURSOR GLOW */
+.cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: #ff004c;
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow: 0 0 20px #ff004c;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+<div class="overlay"></div>
+<canvas id="particles"></canvas>
+
+<div class="cursor" id="cursor"></div>
+
+<header>
+    <h1>hello kawan</h1>
+    <p>Welcome to my web</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+<h2>Biodata</h2>
+<p>Nama : Muhammad</p>
+<p>TTL : Banyuwangi 25 Desember 2008
+<p>Umur : gak ada yang tau🙏</p>
+<p>Oshi : Lily</p>
+</div>
+
+<div class="card">
+<h2>Hobi</h2>
+<p>Gaming, Musik, nonton anime, dll</p>
+</div>
+
+<div class="card">
+<h2>Prestasi</h2>
+<p>JUARA 1 TURNAMEN MLBB SE-JAWA TIMUR</p>
+<p>MVP JUNGGLER TERBAIK</P>
+<p>LOMBA TIDUR NASIONAL</P>
+</div>
+
+<div class="card">
+<h2>Media Sosial</h2>
+
+<a href="https://instagram.com/madzsyaaf" class="social-btn ig" target="_blank">
+<svg class="icon" viewBox="0 0 24 24"><path d="M7 2C4 2 2 4 2 7v10c0 3 2 5 5 5h10c3 0 5-2 5-5V7c0-3-2-5-5-5H7z"/></svg>
+Instagram
+</a>
+
+<a href="https://tiktok.com/@dizeexfrieren" class="social-btn tt" target="_blank">
+<svg class="icon" viewBox="0 0 24 24"><path d="M12 2h3a5 5 0 005 5v3a8 8 0 01-5-1.7V15a5 5 0 11-5-5c.3 0 .7 0 1 .1V7h1z"/></svg>
+TikTok
+</a>
+
+</div>
+
+</div>
+
+<footer>© 2026</footer>
+
+<!-- MUSIC -->
+<audio id="music" loop>
+<source src="sempurna.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="click">
+<source src="click.mp3">
+</audio>
+
+<div class="music-btn" onclick="toggleMusic()">🎵</div>
+
+<script>
+// MUSIC CONTROL
+let music = document.getElementById("music");
+function toggleMusic(){
+    if(music.paused){ music.play(); }
+    else { music.pause(); }
+}
+
+// CLICK SOUND
+document.addEventListener("click",()=>{
+    let c = document.getElementById("click");
+    c.currentTime=0;
+    c.play();
+});
+
+// CURSOR
+let cursor = document.getElementById("cursor");
+document.addEventListener("mousemove",e=>{
+    cursor.style.top = e.clientY+"px";
+    cursor.style.left = e.clientX+"px";
+});
+
+// PARTICLES
+let canvas = document.getElementById("particles");
+let ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+for(let i=0;i<80;i++){
+    particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        r:Math.random()*2
+    });
+}
+
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle="white";
+        ctx.fill();
+        p.y += 0.3;
+        if(p.y>canvas.height) p.y=0;
+    });
+    requestAnimationFrame(draw);
+}
+draw();
+</script>
+
+</body>
+</html>
